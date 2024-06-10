@@ -1,0 +1,64 @@
+
+.textNav{
+    color: #f0f0f0;
+}
+
+.navLat{
+    color: #f0f0f0;
+}
+
+.navNavbar{
+    color: #f0f0f0;
+}
+
+.navNavbar:hover,
+.navNavbar:active{
+    color: #f0f0f0;
+}
+
+.navLat:hover,
+.navLat:active{
+    color: #f0f0f0;
+    background-color: rgb(12, 12, 12);
+    width: 100%;
+    padding: 10px;
+}
+
+.barLat{
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+}
+
+/* .marge{
+    margin-right: -10px;
+    padding-left: -30px;
+} */
+
+.textNav{
+    color: white;
+}
+
+/* Carroussel */
+
+.carousel-item img{
+    filter: brightness(50%);
+    height: 50vh;
+}
+
+.carousel-caption{
+    margin-bottom: 60px;
+}
+
+@media screen and (max-width: 575.98px) {
+    .carousel-item img{
+        height: 200px;
+    }
+    .carousel-caption{
+        margin-bottom: 7px;
+        display: block;
+    }
+
+}
+
