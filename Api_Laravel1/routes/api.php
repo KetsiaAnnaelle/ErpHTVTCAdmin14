@@ -573,6 +573,14 @@ use Illuminate\Support\Facades\Route;
     Route::get('/edit_note/{id}', [NoteController::class, 'edit']); //recuperer les infos d'une note avant de les modifier
     Route::put('/edit_note/{id}', [NoteController::class, 'update'])->whereNumber('id'); //modifier un etudiant
 
+    Route::get('/details_note/{id}', [NoteController::class, 'DetailsNote'])->whereNumber('id'); //details des notes d'un etudiant
+
+    Route::get('/generate_bulletin/{etudiantId}',[NoteController::class, 'generatePDF']); //generer le bulletin de notes
+
+
+
+    // Route::get('/details_note/{id}', [NoteController::class, 'DetailsNote'])->whereNumber('id'); //tous les notes d'un etudiant
+
     Route::delete('/force-delete_note/{id}', [NoteController::class, 'destroy'])->whereNumber('id'); //supprimer une note
 
     //route pour mettre une note dans la corbeille
@@ -594,6 +602,10 @@ use Illuminate\Support\Facades\Route;
     //Pour avoir les etudiants, la filiere et le cours dans notes
 
     Route::get('/GetEtudiantsAndFiliereAndCours', [NoteController::class, 'GetEtudiantsAndFiliere']);
+
+
+
+
 
     //routes pour le dashboard des etudiants
 
@@ -679,3 +691,6 @@ Route::post('/boutonsRepeter', [DepenseSortieController::class, 'GoodperformTask
 
 Route::get('/transaction', [DepenseEntreeController::class, 'index']);
 Route::post('/transaction', [DepenseEntreeController::class, 'store']);
+
+
+  //PDF

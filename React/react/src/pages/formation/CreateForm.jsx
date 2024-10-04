@@ -506,63 +506,63 @@ const CreateForm = () => {
  const createdDate = new Date(element.created_at);
  const formatdate = createdDate.toLocaleDateString();
 
- return(
- <>
- <tr key={index}>
- <td>
- <Form.Check
- inline
- type="checkbox"
- className="mb-3"
- checked={isChecked}
- onClick={() => checkedAll(element.id)}
- />
- </td>
- <td>
- {['bottom'].map((placement) => (
- <OverlayTrigger
- key={placement}
- placement={placement}
- overlay={
- <Tooltip id={`tooltip-${placement}`}>
- <strong>Modifier formation</strong>.
- </Tooltip>
- }
- >
- <Button variant="transparent" className='mb-3 ms-3' ><FaEdit className='text-primary me-1' onClick={()=>handleMan(element)} style={{ cursor:'pointer' }}/></Button>
- </OverlayTrigger>
- ))}
- </td>
- <td>
- {['bottom'].map((placement) => (
- <OverlayTrigger
- key={placement}
- placement={placement}
- overlay={
- <Tooltip id={`tooltip-${placement}`}>
- <strong>Supprimer formation</strong>.
- </Tooltip>
- }
- >
- <Button variant="transparent" className='mb-3 ms-3' onClick={()=>delFormation(element.id)} ><FaTrashAlt className="text-danger" style={{ cursor:'pointer' }} /></Button>
- </OverlayTrigger>
- ))}
- </td>
- <td>{formatdate}</td>
- <td key={index}>{element.nomForm}</td>
- <td key={index}>{element.scolariteForm}</td>
- </tr>
- <MyVerticallyCenteredModal
- show={(idL===element.id) && modalShow}
- onHide={() => setModalShow(false)}
- data={params}
- formation={form}
- />
- </>
- )
- })
- }
- </tbody>
+    return(
+        <>
+            <tr key={index}>
+                <td>
+                    <Form.Check
+                    inline
+                    type="checkbox"
+                    className="mb-3"
+                    checked={isChecked}
+                    onClick={() => checkedAll(element.id)}
+                    />
+                </td>
+                <td>
+                    {['bottom'].map((placement) => (
+                    <OverlayTrigger
+                    key={placement}
+                    placement={placement}
+                    overlay={
+                    <Tooltip id={`tooltip-${placement}`}>
+                        <strong>Modifier formation</strong>.
+                    </Tooltip>
+                    }
+                >
+                    <Button variant="transparent" className='mb-3 ms-3' ><FaEdit className='text-primary me-1' onClick={()=>handleMan(element)} style={{ cursor:'pointer' }}/></Button>
+                        </OverlayTrigger>
+                    ))}
+                </td>
+                <td>
+                    {['bottom'].map((placement) => (
+                    <OverlayTrigger
+                    key={placement}
+                    placement={placement}
+                    overlay={
+                    <Tooltip id={`tooltip-${placement}`}>
+                    <strong>Supprimer formation</strong>.
+                    </Tooltip>
+                    }
+                    >
+                    <Button variant="transparent" className='mb-3 ms-3' onClick={()=>delFormation(element.id)} ><FaTrashAlt className="text-danger" style={{ cursor:'pointer' }} /></Button>
+                    </OverlayTrigger>
+                    ))}
+                </td>
+                <td>{formatdate}</td>
+                <td>{element.nomForm}</td>
+                <td>{element.scolariteForm}</td>
+            </tr>
+            <MyVerticallyCenteredModal
+            show={(idL===element.id) && modalShow}
+            onHide={() => setModalShow(false)}
+            data={params}
+            formation={form}
+            />
+        </>
+        )
+        })
+        }
+    </tbody>
 
  </Table>
 

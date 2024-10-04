@@ -34,7 +34,7 @@ const Acceil = () => {
                             <Card className='border-0'>
                                 <center><FaGraduationCap size={70} style={{color: "#3066e4"}} /></center>
                                 <Card.Body>
-                                    <center className='text-dark'>Etudiants</center>
+                                    <center className='text-dark'>Elèves</center>
                                 </Card.Body>
                             </Card>
                         </Link>
@@ -64,7 +64,7 @@ const Acceil = () => {
                             <Card className='border-0'>
                                 <center><BiSolidBookAlt size={70} style={{color: "#8f3393"}} /></center>
                                 <Card.Body>
-                                    <center className='text-dark'>Formations</center>
+                                    <center className='text-dark'>Classes</center>
                                 </Card.Body>
                             </Card>
                         </Link>

@@ -118,18 +118,19 @@ import DetailsPaiement from './pages/facturation/DetailsPaiement.jsx'
 import StageFiliere from './pages/stage/StageFiliere.jsx';
 import DetailsStageEtudiant from './pages/stage/DetailsStageEtudiant.jsx';
 import ChoixFormStage from "./pages/stage/ChoixFormStage.jsx";
+import BulletinEtudiant from './pages/note/BulletinEtudiant.jsx';
 export const USER = createContext();
 
-const USER_TYPES = {
-    PUBLIC: 'Public User',
-    NORMAL_USER: 'Normal User',
-    ADMIN_USER: 'Admin User',
-};
+// const USER_TYPES = {
+//     PUBLIC: 'Public User',
+//     NORMAL_USER: 'Normal User',
+//     ADMIN_USER: 'Admin User',
+// };
 
-const CURRENT_USER_TYPE = USER_TYPES.NORMAL_USER;
-function Perso() {
-    return null;
-}
+// const CURRENT_USER_TYPE = USER_TYPES.NORMAL_USER;
+// function Perso() {
+//     return null;
+// }
 
 const App = () => {
 
@@ -137,10 +138,10 @@ const App = () => {
 
     const [token, settoken] = useState(localStorage.getItem('token'));
 
-    useEffect(() => {
-        console.log(localStorage.setItem('user',JSON.stringify(user)))
-        console.log(token)
-    }, [user])
+    // useEffect(() => {
+    //     console.log(localStorage.setItem('user',JSON.stringify(user)))
+    //     console.log(token)
+    // }, [user])
 
     return (
        <USER.Provider value={[user, setUser, token, settoken]}>
@@ -175,6 +176,7 @@ const App = () => {
                    <Route path='/note' element={<Note />} />
                    <Route path='/note_archive' element={<NoteArchviees />} />
                    <Route path='/note_corbeille' element={<NoteCorbeille />} />
+                   <Route path='/note_bulletin/:id' element={<BulletinEtudiant />} />
 
                    {/* Gestion des Absences */}
 

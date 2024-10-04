@@ -1,4 +1,4 @@
-import HeaderGeneral from "../../component/HeaderGeneral.jsx";
+ import HeaderGeneral from "../../component/HeaderGeneral.jsx";
 import BarreLateraleEtud from "../../component/BarreLateraleEtud.jsx";
 import { Col, Container, Row, Button, Modal, Form, Table, OverlayTrigger, Tooltip, Nav } from 'react-bootstrap';
 import React, { useState, useEffect, Component } from 'react';

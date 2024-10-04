@@ -255,7 +255,7 @@ const Note = () => {
 
                 // history('/etud/inscription')
 
-                swal("Etudiant mis dans la corbeille !!!",{
+                Swal("Etudiant mis dans la corbeille !!!",{
                     icon:"success",
                 });
                 setallnotes(response.data.data)
@@ -491,6 +491,9 @@ const Note = () => {
                                 <th></th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th> 
                             </tr>
 
                             <tr>
@@ -504,6 +507,9 @@ const Note = () => {
                                     // checked={isChecked}
                                     />
                                 </th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
                                 <th></th>
                                 <th></th>
                                 <th></th>
@@ -557,6 +563,22 @@ const Note = () => {
 
                         <td>
                             {['bottom'].map((placement) => (
+                                <OverlayTrigger
+                                    key={placement}
+                                    placement={placement}
+                                    overlay={
+                                        <Tooltip id={`tooltip-${placement}`}>
+                                            <strong>Voir étudiant</strong>.
+                                        </Tooltip>
+                                    }
+                                >
+                                    <Button variant="transparent" className='mb-3'> <Link to={`/note_bulletin/${element.id}`}><FaEye className="text-warning me-5" style={{ cursor:'pointer' }} /></Link></Button>
+                                </OverlayTrigger>
+                            ))}
+                        </td>
+
+                        <td>
+                            {['bottom'].map((placement) => (
                             <OverlayTrigger
                                 key={placement}
                                 placement={placement}
@@ -602,8 +624,8 @@ const Note = () => {
                             </OverlayTrigger>
                             ))}
                         </td>
-
-
+                        <td></td>
+                        <td></td>
                         <td>{formatdate}</td>
 
                         <td>{element.valeur}</td>

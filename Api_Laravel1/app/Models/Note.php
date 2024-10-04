@@ -17,6 +17,7 @@ class Note extends Model
         'Etudiant_id',
         'formation_id',
         'cour_id',
+        'sequence_id',
         'archived_at'
     ];
 

@@ -53,7 +53,7 @@ class Enseignant extends Model
 
    public function cour()
    {
-       return $this->belongsTo(Cours::class);
+       return $this->belongsTo(Cours::class,'cour_id');
    }
 
    /*public function ficheCours()

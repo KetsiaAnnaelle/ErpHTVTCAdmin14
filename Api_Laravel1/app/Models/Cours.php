@@ -42,8 +42,5 @@ class Cours extends Model
         return $this->hasMany(Note::class,'cour_id');
     }
 
-    public function enseigant()
-    {
-        return $this->hasMany(Note::class);
-    }
+   
 }

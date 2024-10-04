@@ -329,30 +329,6 @@ class EtudiantController extends Controller
     //pour gerer l'achivage d'un etudiant
     public function archive(string $id)
     {
-        // $etudiants = DB::table('inscription_etudiants')
-        // ->join('formations', 'inscription_etudiants.formation_id', '=', 'formations.id')
-        // ->select(
-        //     'formation_id',
-        //     'inscription_etudiants.id',
-        //     'inscription_etudiants.typeEtud',
-        //     'inscription_etudiants.nomEtud',
-        //     'inscription_etudiants.prenomEtud',
-        //     'inscription_etudiants.sexe',
-        //     'inscription_etudiants.telEtud',
-        //     'inscription_etudiants.whatsappEtud',
-        //     'inscription_etudiants.formation_id',
-        //     'inscription_etudiants.created_at',
-        //     'inscription_etudiants.deleted_at',
-        //     'inscription_etudiants.archived_at',
-        //     )
-        // // ->where('archived_at',null)
-        // // ->orderBy('created_at','desc')
-        // ->find($id)
-        // ->update([
-        //     'inscription_etudiants.archived_at'=>now()
-        // ]);
-
-
         $etudiant = InscriptionEtudiant::find($id);
         $etudiant ->update([
             'archived_at'=>now()
@@ -360,21 +336,10 @@ class EtudiantController extends Controller
 
         return response()->json(['message'=>now()]);
 
-        // return response()->json(['message'=>now()]);
-
-
-        // Récupérez la liste des étudiants mise à jour (excluant les étudiants archivés)
-        // $etudiants = InscriptionEtudiant::whereNull('archived_at')->get();
-
-        // return response()->json($etudiants);
-
     }
 
     public function AfficherLesEtudiantsArchivés (){
-        // $etudiants = EtudiantResource::collection(InscriptionEtudiant::whereNotNull('archived_at')->get());
-        // $etudiants = InscriptionEtudiant::whereNotNull('archived_at')->get();
-
-        $etudiants = DB::table('inscription_etudiants')
+         $etudiants = DB::table('inscription_etudiants')
         ->join('formations', 'formations.id', '=', 'inscription_etudiants.formation_id')
         // ->join('inscription_etudiants', 'inscription_etudiants.id', '=', 'paiements.Etudiant_id')
         ->select('inscription_etudiants.id',

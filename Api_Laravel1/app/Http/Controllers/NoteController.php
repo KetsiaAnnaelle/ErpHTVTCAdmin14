@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\InscriptionEtudiant;
 use App\Models\Note;
+use Dompdf\Dompdf;
+use Dompdf\Options;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class NoteController extends Controller
 {
@@ -73,12 +77,12 @@ class NoteController extends Controller
      */
     // public function show(string $id)
     // {
-    //     $notes = DB::table('notes')
-    //     ->join('inscription_etudiants', 'inscription_etudiants.id', '=', 'notes.Etudiant_id')
-    //     ->join('formations', 'formations.id', '=', 'notes.formation_id')
-    //     ->join('cours', 'cours.id', '=', 'notes.noteCours')
-    //     ->select('cours.nomCours', 'notes.id','notes.etudiant_id','notes.formation_id','notes.cour_id','abscences.dateAbs','abscences.nbreHeureAbs','abscences.typeAbs','abscences.motifAbs','abscences.supprimer','abscences.archiver','inscription_etudiants.nomEtud','inscription_etudiants.created_at','inscription_etudiants.prenomEtud','formations.nomForm')
-    //     ->where('notes.id',$id)
+        // $notes = DB::table('notes')
+        // ->join('inscription_etudiants', 'inscription_etudiants.id', '=', 'notes.Etudiant_id')
+        // ->join('formations', 'formations.id', '=', 'notes.formation_id')
+        // ->join('cours', 'cours.id', '=', 'notes.noteCours')
+        // ->select('cours.nomCours', 'notes.id','notes.etudiant_id','notes.formation_id','notes.cour_id','abscences.dateAbs','abscences.nbreHeureAbs','abscences.typeAbs','abscences.motifAbs','abscences.supprimer','abscences.archiver','inscription_etudiants.nomEtud','inscription_etudiants.created_at','inscription_etudiants.prenomEtud','formations.nomForm')
+    //->where('notes.id',$id)
     //     ->first();
 
     //     return response()->json($notes);
@@ -288,8 +292,27 @@ class NoteController extends Controller
     }
 
     public function DetailsNote(string $id){
+
+
         $Note = Note::find($id);
-        $Note->formation->nomForm;
+        $Note->Formation->nomForm;
+        $Note->Etudiant_id;
+
+        // $NoteStud = InscriptionEtudiant::find($id);
+        // $NoteStud->note;
+        // $Note->Etudiant->id;
+
+        return response()->json($Note);
+        // return response()->json(['note' => $Note, 'allnotes' => $NoteStud]);
+    }
+
+
+    public function AllNote(string $id){
+
+
+        $Note = InscriptionEtudiant::find($id);
+        $Note->note;
+        // $Note->Etudiant->id;
 
         return response()->json($Note);
     }
@@ -329,4 +352,97 @@ class NoteController extends Controller
         return response()->json(true);
     }
 
+
+    public function generatePDF($etudiantId){
+        try {
+            $options = new Options();
+            $options->set('defaultFont', 'Arial');
+            $options->set('isCssEnabled', true); // prise en charge du css3
+            $options->set('defaultPaperOrientation', 'landscape');
+            $dompdf = new Dompdf($options);
+
+            // Fetch student data using etudiant_id
+            // $studentData = DB::table('inscription_etudiants')
+            //     ->join('formations', 'formations.id', '=', 'inscription_etudiants.formation_id')
+            //     ->select('inscription_etudiants.nomEtud', 'inscription_etudiants.id', 'inscription_etudiants.prenomEtud', 'inscription_etudiants.formation_id', 'formations.id', 'formations.nomForm',
+            //     DB::raw('DATE_FORMAT(inscription_etudiants.created_at, "%y") as yearCreated')) //pour extraire 24 de 2024 par exemple
+            //     ->where('inscription_etudiants.id', $etudiantId)
+            //     ->first();
+
+            // $nomEns = DB::table('cours')
+            //                 ->join('en')
+
+            $student = DB::table('inscription_etudiants')
+            ->join('formations', 'formations.id', '=', 'inscription_etudiants.formation_id')
+            ->select('inscription_etudiants.nomEtud','inscription_etudiants.prenomEtud','inscription_etudiants.formation_id','formations.nomForm')
+            ->where('inscription_etudiants.id', $etudiantId)->first();
+            $notes = DB::table('notes')
+                ->join('cours', 'cours.id', '=', 'notes.cour_id')
+                ->select(
+                    'cours.nomCours',
+                    'notes.valeur',
+                    'notes.id as note_id', // Assurez-vous que 'notes.id' est sélectionné avec un alias
+                    'cours.nomCours',
+                    // Ajoutez ces colonnes si elles existent dans la table 'notes'
+                    // 'notes.appreciation',
+                    // 'notes.observations'
+                    'cours.id'
+                )
+                ->where('notes.etudiant_id', $etudiantId)
+                ->get();
+
+            // return view('bulletin', compact('student', 'notes'));
+
+
+
+        // // Récupérer les données des tranches pour la filière de l'étudiant
+        //     $tranches = DB::table('tranches')
+        //     ->where('formation_id', $studentData->formation_id)
+        //     ->get();
+
+        // $totalPaye = 0;
+        // $totalRestant = 0;
+
+        // // Parcourir les tranches et calculer les montants payés et restants
+        // $trancheData = $tranches->map(function ($tranche) use ($etudiantId, &$totalPaye, &$totalRestant) {
+        //     $factures = DB::table('factures')
+        //         ->select(
+        //             DB::raw('SUM(paye) as SumPaye'),
+        //             DB::raw('SUM(restant) as SumRestant'),
+        //             // DB::raw('DATE_FORMAT(created_at, "%y") as yearCreated')
+        //         )
+        //         ->where('tranche_id', $tranche->id)
+        //         ->where('etudiant_id', $etudiantId)
+        //         ->where('supprimer', 0)
+        //         ->where('archiver', 0)
+        //         ->first();
+
+        //     if ($factures && $factures->SumPaye !== null) {
+        //         $tranche->SumPaye = $factures->SumPaye;
+        //         $tranche->SumRestant = $factures->SumRestant;
+        //         // $tranche->yearCreated = $factures->yearCreated;
+        //     } else {
+        //         $tranche->SumPaye = 0;
+        //         $tranche->SumRestant = $tranche->montant;
+        //         // $tranche->yearCreated = date('y', strtotime($tranche->created_at));
+        //     }
+
+        //     $totalPaye += $tranche->SumPaye;
+        //     $totalRestant += $tranche->SumRestant;
+
+        //     return $tranche;
+        // });
+
+        // Charger les données dans la vue
+        $pdf = app('dompdf.wrapper');
+        $pdf->loadView('bulletin', compact('student', 'notes'));
+
+        // Télécharger le fichier PDF
+        return $pdf->download("test.pdf");
+        } catch (\Throwable $e) {
+            // Gérer l'exception
+            Log::error('Error generating PDF: ' . $e->getMessage());
+            return response()->json(['error' => 'Error generating PDF: ' . $e->getMessage()], 500);
+        }
+    }
 }
