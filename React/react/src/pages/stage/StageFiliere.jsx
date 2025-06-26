@@ -418,9 +418,9 @@ const StageFilière = () => {
                                                                             if (typeof value === 'string') {
                                                                                 return value.toLowerCase().includes(searchQuery);
                                                                             }
-                                                                            if (typeof value === 'int') {
-                                                                                return value.toLowerCase().includes(searchQuery);
-                                                                            }
+                                                                            // if (typeof value === 'int') {
+                                                                            //     return value.toLowerCase().includes(searchQuery);
+                                                                            // }
                                                                         })
                                                                     ).map((etudiant, etudiantIndex) => {
                                                                     return(
