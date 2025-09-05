@@ -1077,19 +1077,24 @@ const EtudInscription = () => {
                                                                                                     onClick={() => checkedAll(element.id)}
                                                                                                 />
                                                                                             </td>
-
                                                                                             <td>
                                                                                                 {['bottom'].map((placement) => (
                                                                                                     <OverlayTrigger
-                                                                                                        key={placement}
-                                                                                                        placement={placement}
-                                                                                                        overlay={
-                                                                                                            <Tooltip id={`tooltip-${placement}`}>
-                                                                                                                <strong>Voir étudiant</strong>.
-                                                                                                            </Tooltip>
-                                                                                                        }
+                                                                                                    key={placement}
+                                                                                                    placement={placement}
+                                                                                                    overlay={
+                                                                                                        <Tooltip id={`tooltip-${placement}`}>
+                                                                                                        <strong>Voir étudiant</strong>.
+                                                                                                        </Tooltip>
+                                                                                                    }
                                                                                                     >
-                                                                                                        <Button variant="transparent" className='mb-3'> <Link to={`/etud/details/${element.id}`}><FaEye className="text-warning me-5" style={{ cursor:'pointer' }} /></Link></Button>
+                                                                                                    <div className="d-inline-block"> {/* Ajout d'un wrapper div */}
+                                                                                                        <Link to={`/etud/details/${element.id}`}>
+                                                                                                        <Button variant="transparent" className="mb-3">
+                                                                                                            <FaEye className="text-warning me-5" style={{ cursor: 'pointer' }} />
+                                                                                                        </Button>
+                                                                                                        </Link>
+                                                                                                    </div>
                                                                                                     </OverlayTrigger>
                                                                                                 ))}
                                                                                             </td>
@@ -1548,6 +1553,6 @@ const EtudInscription = () => {
 
         </Container>
     );
-};
+}
 
 export default EtudInscription;

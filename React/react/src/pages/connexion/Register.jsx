@@ -155,7 +155,7 @@ const Register = () => {
                             </div>
 
                             <div className="mb-3">
-                                <input type="password" className="form-control" id="password" placeholder="Confirmer votre mot de passe" value={passwordconfirm} onChange={(e)=>setpasswordconfirm(e.target.value)}/>
+                                <input type="password" className="form-control" id="passwordconfirm" placeholder="Confirmer votre mot de passe" value={passwordconfirm} onChange={(e)=>setpasswordconfirm(e.target.value)}/>
                                 {/* {errors.passwordconfirm?.type==='required' && <span className='text-danger'>Ce Champ est Obligatoire</span>} */}
                                 
                                 {validationErrors.passwordconfirm && (
